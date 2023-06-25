@@ -1,0 +1,24 @@
+
+db.Anime.find()
+
+var query = {cuisine : "American"}
+var projection =  {"borough" : 1}
+db.Scores.find(query,projection)
+
+var query= { "mal_rank": 1 }
+db.Anime.find(query)
+
+var query= { "mal_popularity": 1 }
+db.Anime.find(query)
+
+
+var query1 = { type : { $exists: true } }
+var fase1 = { $match: query1 }
+var query2 = { "year": {$year: { $dateFromString: {dateString :"$aired_start"}} }}
+var fase2 = { $addFields: query2 }
+var query3= {"year": {"$gte": 2000}}
+var fase3 = { $match: query3 }
+var query4 = { "_id": "$type", count: { $sum: 1}}
+var fase4 = { $group: query4}
+var etapas = [ fase1,fase2,fase3,fase4]
+db.Anime.aggregate(etapas)
