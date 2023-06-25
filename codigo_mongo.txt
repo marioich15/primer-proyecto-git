@@ -1,6 +1,8 @@
 
 db.Anime.find()
 
+db.Anime.find()
+
 var query = {cuisine : "American"}
 var projection =  {"borough" : 1}
 db.Scores.find(query,projection)
